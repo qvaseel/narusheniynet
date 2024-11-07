@@ -34,7 +34,8 @@ class ReportController extends Controller
     }
 
     public function show(Report $report){
-        return view('report.show', compact('report'));
+        $statuses = Status::all();
+        return view('report.show', compact('report','statuses'));
     }
 
     public function update(Request $request, Report $report){
