@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Report;
 use App\Models\Status;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class ReportController extends Controller
 {
     public function index() {
-        $reports = Report::all();
+        $reports = Report::where('user_id', Auth::user()->id)->get();
         $statuses = Status::all();
         $userId = Auth::id();
         return view('report.index', compact('reports', 'userId', 'statuses'));
@@ -21,16 +23,24 @@ class ReportController extends Controller
         return redirect()->back();
     }
 
-    public function store(Request $request, Report $report) {
-        $data = $request -> validate([
-            'number' => 'string',
-            'description' => 'string',
-            "user_id" => "",
-            "status_id" => "",
+    public function create() {
+        return view('report.create');
+    }
+
+    public function store(Request $request): RedirectResponse {
+        $request->validate([
+            'number' => ['required', 'string', 'max:255'],
+            'description' => ['required', 'string']
         ]);
 
-        $report->create($data);
-        return redirect()->back();
+        Report::create([
+            'number' => $request->number,
+            'description' => $request->description,
+            "user_id" => Auth::user()->id,
+            "status_id" => 1,
+        ]);
+
+        return redirect()->route('dashboard');
     }
 
     public function show(Report $report){

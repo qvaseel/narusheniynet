@@ -44,6 +44,13 @@
             <x-input-error :messages="$errors->get('tel')" class="mt-2" />
         </div>
 
+        <!-- Address -->
+        <div>
+            <x-input-label for="addres" :value="__('Введите адрес')" />
+            <x-text-input id="addres" class="block mt-1 w-full" type="text" name="addres" :value="old('addres')" required autocomplete="addres" />
+            <x-input-error :messages="$errors->get('addres')" class="mt-2" />
+        </div>
+
         <!-- Password -->
         <div>
             <x-input-label for="password" :value="__('Введите пароль')" />
