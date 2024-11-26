@@ -1,23 +1,36 @@
-@extends('layouts.main')
-@section('content')
-<div class="mx-auto w-auto">
-    <h2>админ-панель</h2>
-    <div class="flex flex-col mx-auto my-5">
-        <div class="flex">
-            <p class="w-1/4 text-center border-2 font-semibold">Номер заявки</p>
-            <p class="w-1/4 text-center border-2 font-semibold">Номер машины</p>
-            <p class="w-1/4 text-center border-2 font-semibold">Описание заявки</p>
-            <p class="w-1/4 text-center border-2 font-semibold">Статус заявки</p>
-        </div>
-            @foreach($reports as $report)
-            <div class="flex">
-                <p class="w-1/4 text-center border-2">{{ $report['id'] }}</p>
-                <p class="w-1/4 text-center border-2">{{ $report['number'] }}</p>
-                <p class="w-1/4 text-center border-2">{{ $report['description'] }}</p>
-                <p class="w-1/4 text-center border-2">{{ $report->status->name }}</p>
+
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{__('Административная панель')}}
+        </h2>
+    </x-slot>
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white  overflow-hidden shadow-sm sm:rounded-lg">
+                @foreach($reports as $report)
+                    <p>{{\Carbon\Carbon::parse($report->created_at)->translatedFormat('j F Y')}}</p>
+                    <p>{{ $report->user->fullName() }}</p>
+                    <p>{{ $report->number }}</p>
+                    <p>{{ $report->description }}</p>
+                    @if ($report->status_id == 1)
+                        <form id="form-update-{{$report->id}}" action="{{route('report.update')}}" method="POST">
+                            @csrf
+                            @method('PATCH')
+                            <input type="hidden" name="id" value="{{$report->id}}">
+                            <select name="status_id" onchange="document.getElementById('form-update-{{$report->id}}').submit()">
+                                @foreach ($statuses as $status)
+                                    <option value="{{$status->id}}">{{$status->name}}</option>
+                                @endforeach
+                            </select>
+                        </form>
+                    @else
+                        <p>{{ $report->status->name }}</p>
+                    @endif
+                    
+                @endforeach
             </div>
-            @endforeach
+        </div>
     </div>
 
-</div>
-@endsection()
+</xч>

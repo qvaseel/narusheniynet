@@ -24,7 +24,8 @@ class ReportController extends Controller
     }
 
     public function create() {
-        return view('report.create');
+        $statuses = Status::all();
+        return view('report.create', compact('statuses'));
     }
 
     public function store(Request $request): RedirectResponse {
@@ -43,19 +44,31 @@ class ReportController extends Controller
         return redirect()->route('dashboard');
     }
 
+    public function update(Request $request) {
+        $request->validate([
+            'status_id' => ['required'],
+            'id' => ['required']
+        ]);
+
+        Report::where('id', $request->id)->update([
+            'status_id' => $request->status_id,
+        ]);
+        return redirect()->back();
+    }
+
     public function show(Report $report){
         $statuses = Status::all();
         return view('report.show', compact('report','statuses'));
     }
 
-    public function update(Request $request, Report $report){
-        $data = $request -> validate([
-            'number' => 'string',
-            'description' => 'string',
-            "status_id" => ""
-        ]);
+    // public function update(Request $request, Report $report){
+    //     $data = $request -> validate([
+    //         'number' => 'string',
+    //         'description' => 'string',
+    //         "status_id" => ""
+    //     ]);
 
-        $report->update($data);
-        return redirect()->back();
-    }
+    //     $report->update($data);
+    //     return redirect()->back();
+    // }
 }

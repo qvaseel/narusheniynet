@@ -24,7 +24,7 @@ Route::middleware('auth')->group(function () {
 
     Route::delete('/reports/{report}', [ReportController::class, 'destroy'])->name('report.destroy');
 
-    Route::post('/reports', [ReportController::class, 'store'])->name('report.store');
+    // Route::post('/reports', [ReportController::class, 'store'])->name('report.store');
 
     Route::get('/reports/{report}', [ReportController::class, 'show'])->name('report.show');
 
@@ -34,6 +34,7 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware((Admin::class))->group(function(){
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+    Route::patch('/update', [ReportController::class, 'update'])->name('reports.update');
 });
 
 require __DIR__.'/auth.php';

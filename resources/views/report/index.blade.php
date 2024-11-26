@@ -2,9 +2,12 @@
     <x-slot name="header">
         <div class="w-full flex justify-between items-center">
             <h2 class="text-3xl font-bold py-5">{{ __('Список заявлений')}}</h2>
-            <button data-modal-target="default-modal" data-modal-toggle="default-modal" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 h-12 text-center" type="button">
+            <!-- <button data-modal-target="default-modal" data-modal-toggle="default-modal" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 h-12 text-center" type="button">
                 Создать
-            </button>
+            </button> -->
+            <x-nav-link :href="route('report.create')">
+                {{__('Создать заявление')}}
+            </x-nav-link>
         </div>
     </x-slot>
     <div class="flex flex-col gap-5 flex-wrap justify-between">
