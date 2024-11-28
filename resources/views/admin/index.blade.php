@@ -6,9 +6,10 @@
         </h2>
     </x-slot>
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white  overflow-hidden shadow-sm sm:rounded-lg">
+        <div class="max-w-7xl  mx-auto sm:px-6 lg:px-8">
+            <div class="flex flex-col gap-4 overflow-hidden sm:rounded-lg">
                 @foreach($reports as $report)
+                <div class="border-2 rounded-xl w-1/3 p-5 bg-white shadow-sm ">
                     <p>{{\Carbon\Carbon::parse($report->created_at)->translatedFormat('j F Y')}}</p>
                     <p>{{ $report->user->fullName() }}</p>
                     <p>{{ $report->number }}</p>
@@ -27,10 +28,10 @@
                     @else
                         <p>{{ $report->status->name }}</p>
                     @endif
-                    
+                    </div>    
                 @endforeach
             </div>
         </div>
     </div>
 
-</xч>
+</x-app-layout>
