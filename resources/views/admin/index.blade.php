@@ -10,7 +10,7 @@
             <div class="flex flex-col gap-4 overflow-hidden sm:rounded-lg">
                 @foreach($reports as $report)
                 <div class="border-2 rounded-xl w-1/3 p-5 bg-white shadow-sm ">
-                    <p>{{\Carbon\Carbon::parse($report->created_at)->translatedFormat('j F Y')}}</p>
+                    <p>{{\Carbon\Carbon::parse($report->created_at)->toDateString()}}</p>
                     <p>{{ $report->user->fullName() }}</p>
                     <p>{{ $report->number }}</p>
                     <p>{{ $report->description }}</p>
