@@ -24,24 +24,10 @@
                     </a>
                 </p>
                 <p class="text-left">{{ $report['description'] }}</p>
-                <p id="statusText" class="font-bold">{{ $report->status->name }}</p>
+                <p id="statusText" class="font-bold statusText">{{ $report->status->name }}</p>
             </div>
             
         </div>
         @endforeach
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const statusText = document.getElementById('statusText');
-            const status = statusText.innerText;
-
-            if (status === "новое") {
-                statusText.classList.add('text-black');
-            } else if (status === "подтверждено") {
-                statusText.classList.add('text-blue-500');
-            } else {
-                statusText.classList.add('text-red-500')
-            }
-        })
-    </script>
 </x-app-layout>

@@ -7,13 +7,28 @@
     </x-slot>
     <div class="py-12">
         <div class="max-w-7xl  mx-auto sm:px-6 lg:px-8">
-            <div class="flex flex-col gap-4 overflow-hidden sm:rounded-lg">
+            <table class="overflow-hidden sm:rounded-lg w-full">
+                <thead>
+                    <tr class="bg-blue-800">
+                        <th class="text-white font-semibold p-3 text-left">Дата</th>
+                        <th class="text-white font-semibold p-3 text-left">ФИО подавшего</th>
+                        <th class="text-white font-semibold p-3 text-left">Номер автомобиля</th>
+                        <th class="text-white font-semibold p-3 text-left">Описание заявленя</th>
+                        <th class="text-white font-semibold p-3 text-left">Статус</th>
+                    </tr>
+                </thead>
+                <tbody>
                 @foreach($reports as $report)
-                <div class="border-2 rounded-xl w-1/3 p-5 bg-white shadow-sm ">
-                    <p>{{\Carbon\Carbon::parse($report->created_at)->toDateString()}}</p>
-                    <p>{{ $report->user->fullName() }}</p>
-                    <p>{{ $report->number }}</p>
-                    <p>{{ $report->description }}</p>
+                    <tr class="odd:bg-white even:bg-slate-100">
+                        <td class="p-3">
+                            {{\Carbon\Carbon::parse($report->created_at)->toDateString()}}
+                        </td>
+                        <td class="p-3">{{ $report->user->fullName() }}</td>
+                        <td class="p-3">{{ $report->number }}</td>
+                        <td class="p-3">{{ $report->description }}</td>
+                        <td class="p-3">
+
+                        
                     @if ($report->status_id == 1)
                         <form id="form-update-{{$report->id}}" action="{{route('report.update')}}" method="POST">
                             @csrf
@@ -25,13 +40,17 @@
                                 @endforeach
                             </select>
                         </form>
-                    @else
-                        <p>{{ $report->status->name }}</p>
-                    @endif
-                    </div>    
+                        @else
+                            <span class="font-bold statusText" id="statusText">{{ $report->status->name }}</span>
+                        @endif
+                        </td>
+                    </tr>    
                 @endforeach
-            </div>
+                </tbody>
+            </table>
         </div>
     </div>
-
+    <script>
+        
+    </script>
 </x-app-layout>

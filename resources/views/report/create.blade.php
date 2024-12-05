@@ -1,3 +1,4 @@
+
 <x-app-layout>
     <x-slot name="header">
         <h2 class="text-3xl font-bold py-5">{{ __('Создание нового заявления')}}</h2>
