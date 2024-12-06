@@ -7,8 +7,9 @@
 
         <!-- Login -->
         <div>
-            <x-input-label for="login" :value="__('Логин')" />
-            <x-text-input id="login" class="block mt-1 w-full" type="text" name="login" :value="old('login')" required autofocus autocomplete="login" />
+            <x-input-label for="input_type" :value="__('Логин')" />
+            <x-text-input id="input_type" class="block mt-1 w-full" type="text" name="input_type" :value="old('login')"  autofocus autocomplete="login" />
+            <x-input-error :messages="$errors->get('email')" class="mt-2" />
             <x-input-error :messages="$errors->get('login')" class="mt-2" />
         </div>
         <!-- Password -->

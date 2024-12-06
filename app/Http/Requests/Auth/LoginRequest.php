@@ -11,6 +11,7 @@ use Illuminate\Validation\ValidationException;
 
 class LoginRequest extends FormRequest
 {
+    protected $inputType;
     public function authorize(): bool
     {
         return true;
@@ -20,7 +21,8 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'login' => ['required', 'string'],
+            'email' => ['required_without:login', 'string', 'email', 'exists:users,email'],
+            'login' => ['required_without:email', 'string', 'exists:users,login'],
             'password' => ['required', 'string'],
         ];
     }
@@ -30,11 +32,11 @@ class LoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::attempt($this->only('login', 'password'), $this->boolean('remember'))) {
+        if (! Auth::attempt($this->only($this->inputType, 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'login' => trans('auth.failed'),
+                $this->inputType => trans('auth.failed'),
             ]);
         }
 
@@ -62,5 +64,11 @@ class LoginRequest extends FormRequest
     public function throttleKey(): string
     {
         return Str::transliterate(Str::lower($this->string('login')).'|'.$this->ip());
+    }
+
+    protected function prepareForValidation()
+    {
+        $this->inputType = filter_var($this->input('input_type'), FILTER_VALIDATE_EMAIL) ? 'email' : 'login';
+        $this->merge([$this->inputType => $this -> input('input_type')]);
     }
 }

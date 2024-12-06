@@ -13,11 +13,11 @@
     <div class="max-w-7xl mx-auto py-6 px-4 flex flex-col gap-5 flex-wrap justify-between">
 
         @foreach ($reports as $report)
-        <div class="bg-white flex flex-col gap-5 p-4 border-2 rounded-xl">
+        <div class="bg-white flex flex-col gap-5 p-4 border-2 rounded-xl w-full">
             <p class="text-red-700 font-bold">
                 {{\Carbon\Carbon::parse($report->created_at)->toDateString()}}
             </p>
-            <div class="flex justify-between">
+            <div class="flex justify-between gap-1 flex-wrap">
                 <p class="font-bold">
                     <a href="{{route('report.show',$report->id)}}">
                         {{ $report->number }}

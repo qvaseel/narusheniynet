@@ -6,27 +6,27 @@
         </h2>
     </x-slot>
     <div class="py-12">
-        <div class="max-w-7xl  mx-auto sm:px-6 lg:px-8">
-            <table class="overflow-hidden sm:rounded-lg w-full">
+        <div class="max-w-7xl mx-auto px-2 lg:px-8 overflow-auto">
+            <table class="rounded-lg w-full overflow-hidden ">
                 <thead>
                     <tr class="bg-blue-800">
-                        <th class="text-white font-semibold p-3 text-left">Дата</th>
-                        <th class="text-white font-semibold p-3 text-left">ФИО подавшего</th>
-                        <th class="text-white font-semibold p-3 text-left">Номер автомобиля</th>
-                        <th class="text-white font-semibold p-3 text-left">Описание заявленя</th>
-                        <th class="text-white font-semibold p-3 text-left">Статус</th>
+                        <th class="text-white font-semibold p-1 sm:p-3 text-left">Дата</th>
+                        <th class="text-white font-semibold p-1 sm:p-3text-left">ФИО подавшего</th>
+                        <th class="text-white font-semibold p-1 sm:p-3text-left">Номер автомобиля</th>
+                        <th class="text-white font-semibold p-1 sm:p-3 text-left">Описание заявленя</th>
+                        <th class="text-white font-semibold pp-1 sm:p-3 text-left">Статус</th>
                     </tr>
                 </thead>
                 <tbody>
                 @foreach($reports as $report)
                     <tr class="odd:bg-white even:bg-slate-100">
-                        <td class="p-3">
+                        <td class="p-1 sm:p-3">
                             {{\Carbon\Carbon::parse($report->created_at)->toDateString()}}
                         </td>
-                        <td class="p-3">{{ $report->user->fullName() }}</td>
-                        <td class="p-3">{{ $report->number }}</td>
-                        <td class="p-3">{{ $report->description }}</td>
-                        <td class="p-3">
+                        <td class="p-1 sm:p-3">{{ $report->user->fullName() }}</td>
+                        <td class="p-1 sm:p-3">{{ $report->number }}</td>
+                        <td class="p-1 sm:p-3">{{ $report->description }}</td>
+                        <td class="p-1 sm:p-3">
 
                         
                     @if ($report->status_id == 1)

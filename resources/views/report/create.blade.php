@@ -17,7 +17,7 @@
             <!-- Desription -->
             <div>
                 <x-input-label for="description" :value="__('Описание нарушенения')"/>
-                <x-textarea id="description" class="block mt-1" rows="10" cols="100" name="description" required/>
+                <x-textarea id="description" class="block mt-1 w-5/6" rows="10" name="description" required/>
                 <x-input-error :messages="$errors->get('description')" class="mt-2" />
                 <!-- <textarea name="description" type="text" id="description" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Описание" required></textarea> -->
             </div>
